@@ -28,6 +28,7 @@ android {
 
 dependencies {
     //implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:1.6.1"
     implementation project(':blockcanary-analyzer')
 //    implementation 'com.github.markzhai:blockcanary-analyzer:1.5.0'
 }

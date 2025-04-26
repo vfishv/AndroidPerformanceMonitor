@@ -116,6 +116,7 @@ public final class BlockCanaryInternals {
     }
 
     static String getPath() {
+        /*
         String state = Environment.getExternalStorageState();
         String logPath = BlockCanaryInternals.getContext()
                 == null ? "" : BlockCanaryInternals.getContext().providePath();
@@ -124,6 +125,7 @@ public final class BlockCanaryInternals {
                 && Environment.getExternalStorageDirectory().canWrite()) {
             return Environment.getExternalStorageDirectory().getPath() + logPath;
         }
+        */
         return getContext().provideContext().getFilesDir() + BlockCanaryInternals.getContext().providePath();
     }
 

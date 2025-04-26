@@ -17,10 +17,12 @@ package com.github.moduth.blockcanary;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import com.github.moduth.blockcanary.internal.BlockInfo;
@@ -33,6 +35,8 @@ import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.HONEYCOMB;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
+
+import androidx.core.app.NotificationCompat;
 
 final class DisplayService implements BlockInterceptor {
 
@@ -69,7 +73,14 @@ final class DisplayService implements BlockInterceptor {
                 Log.w(TAG, "Method not found", e);
             }
         } else {
-            Notification.Builder builder = new Notification.Builder(context)
+            String packageName = context.getPackageName();
+            if (SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel notificationChannel = new NotificationChannel(packageName, packageName, NotificationManager.IMPORTANCE_LOW);
+                notificationChannel.setDescription(packageName);
+                notificationChannel.setShowBadge(false);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, packageName)
                     .setSmallIcon(R.drawable.block_canary_notification)
                     .setWhen(System.currentTimeMillis())
                     .setContentTitle(contentTitle)
