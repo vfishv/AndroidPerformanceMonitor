@@ -1,5 +1,4 @@
 <manifest
-    package="com.github.moduth.blockcanary.core"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- To store the heap dumps and leak analysis results. -->

@@ -2,7 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion LIBRARY_COMPILE_SDK_VERSION
-    buildToolsVersion LIBRARY_BUILD_TOOLS_VERSION
+    //buildToolsVersion LIBRARY_BUILD_TOOLS_VERSION
+    namespace "com.example.blockcanary"
+
+    buildFeatures {
+        buildConfig = true
+        dataBinding = false
+        viewBinding = true
+        buildFeatures.compose = false
+    }
 
     defaultConfig {
         applicationId "com.example.blockcanary"
@@ -20,10 +28,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    debugCompile project(':blockcanary-android')
-    releaseCompile project(':blockcanary-android-no-op')
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //implementation project(':blockcanary-android')
+    implementation project(':blockcanary-analyzer')
+    debugImplementation project(':blockcanary-android')
+    releaseImplementation project(':blockcanary-android-no-op')
 
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.11.0"
 }
