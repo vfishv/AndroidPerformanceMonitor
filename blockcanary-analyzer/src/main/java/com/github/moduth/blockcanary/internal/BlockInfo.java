@@ -111,7 +111,14 @@ public class BlockInfo {
                     .getContext()
                     .provideContext()
                     .getSystemService(Context.TELEPHONY_SERVICE);
-            sImei = telephonyManager.getDeviceId();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // Android 10及以上版本
+                //sImei = telephonyManager.getImei();
+                sImei = EMPTY_IMEI;
+            } else {
+                sImei = telephonyManager.getDeviceId();
+            }
+
         } catch (Exception exception) {
             Log.e(TAG, NEW_INSTANCE_METHOD, exception);
             sImei = EMPTY_IMEI;
