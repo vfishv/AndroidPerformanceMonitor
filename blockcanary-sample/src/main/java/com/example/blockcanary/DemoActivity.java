@@ -15,6 +15,8 @@
  */
 package com.example.blockcanary;
 
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,10 +24,14 @@ import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DemoActivity extends AppCompatActivity {
+
+    public static final int REQUEST_NOTIFICATION_PERMISSION = 26858;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +42,22 @@ public class DemoActivity extends AppCompatActivity {
                 .add(R.id.container, DemoFragment.newInstance())
                 .commit();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showTipDialog();
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, REQUEST_NOTIFICATION_PERMISSION);
+            } else {
+                // 权限已授予
+                //showNotification();
+            }
+        }
     }
 
     private void showTipDialog() {
