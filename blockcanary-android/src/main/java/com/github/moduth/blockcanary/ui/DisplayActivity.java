@@ -55,6 +55,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.text.format.DateUtils.FORMAT_SHOW_DATE;
 import static android.text.format.DateUtils.FORMAT_SHOW_TIME;
@@ -83,7 +84,7 @@ public class DisplayActivity extends Activity {
         Intent intent = new Intent(context, DisplayActivity.class);
         intent.putExtra(SHOW_BLOCK_EXTRA, blockStartTime);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        return PendingIntent.getActivity(context, 1, intent, FLAG_UPDATE_CURRENT);
+        return PendingIntent.getActivity(context, 1, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     }
 
     @Override
