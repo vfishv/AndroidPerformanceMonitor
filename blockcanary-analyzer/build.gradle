@@ -2,8 +2,7 @@ apply plugin: 'com.android.library'
 //apply from: 'gradle-mvn-push.gradle'
 
 android {
-    compileSdkVersion LIBRARY_COMPILE_SDK_VERSION
-    //buildToolsVersion LIBRARY_BUILD_TOOLS_VERSION
+    compileSdkVersion 36
     namespace "com.github.moduth.blockcanary.core"
 
     buildFeatures {
